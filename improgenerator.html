@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Improvisación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        #resultado {
+            margin-top: 40px;
+            font-size: 28px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generador de Improvisación</h1>
+    <button onclick="generar()">Generar frase</button>
+    <div id="resultado"></div>
+
+    <script>
+        async function generar() {
+            const respuesta = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer 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'
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        { role: 'system', content: 'Eres un generador de frases creativas para improvisación teatral.' },
+                        { role: 'user', content: 'Genera una frase breve y divertida con esta estructura: [Profesión] [Acción] [Lugar].' }
+                    ],
+                    temperature: 0.8,
+                    max_tokens: 60
+                })
+            });
+
+            const datos = await respuesta.json();
+            document.getElementById('resultado').innerText = datos.choices[0].message.content;
+        }
+    </script>
+
+</body>
+</html>
