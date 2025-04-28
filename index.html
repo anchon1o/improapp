@@ -119,6 +119,9 @@
     <button onclick="generar('Duda existencial')">Duda existencial</button>
     <button onclick="generar('Confesión')">Confesión</button>
     <button onclick="generar('Frase de película')">Frase de película</button>
+    <button onclick="generarNumero()">Número 1-9</button>
+    <button onclick="generarLetra()">Letra A-Z</button>
+
   </div>
 
   <!-- Contenedor donde se mostrará el resultado -->
@@ -169,6 +172,19 @@
         document.getElementById('resultado').innerText = "Error al generar.";
       }
     }
+    // --- Función para generar un número aleatorio del 1 al 9 ---
+    function generarNumero() {
+      const numero = Math.floor(Math.random() * 9) + 1; // Número entre 1 y 9
+      document.getElementById('resultado').innerText = numero;
+    }
+    // --- Función para generar una letra aleatoria del abecedario ---
+    function generarLetra() {
+      const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'; // Incluyendo la Ñ para español
+      const letra = letras[Math.floor(Math.random() * letras.length)];
+      document.getElementById('resultado').innerText = letra;
+}
+
+
   </script>
 
 </body>
