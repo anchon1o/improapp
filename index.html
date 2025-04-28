@@ -36,12 +36,12 @@
       margin-bottom: 30px;
     }
 
-    /* --- Estilos de los botones --- */
+    /* --- Estilos de los botones generales --- */
     button {
       width: calc(33.33% - 8px);
       min-width: 100px;
       height: 40px;
-      background-color: #333333;
+      background-color: #333333; /* Default gris oscuro */
       color: #FFFFFF;
       font-family: 'Montserrat', sans-serif;
       border: none;
@@ -55,7 +55,15 @@
       text-overflow: ellipsis;
     }
 
-    /* --- Estilo al pasar el ratón por encima de un botón --- */
+    /* --- Colores específicos --- */
+    .azul { background-color: #2980b9; }
+    .verde { background-color: #27ae60; }
+    .amarillo { background-color: #f39c12; }
+    .rojo { background-color: #c0392b; }
+    .naranja { background-color: #d35400; }
+    .morado { background-color: #8e44ad; }
+
+    /* --- Hover para todos los botones --- */
     button:hover {
       background-color: #555555;
     }
@@ -108,90 +116,73 @@
 
   <!-- Botones para seleccionar categorías -->
   <div id="botones">
-    <button onclick="generar('Profesión')">👷 PROFESIÓN</button>
-    <button onclick="generar('Objeto')">🧹 OBJETO</button>
-    <button onclick="generar('Lugar')">🏜️ LUGAR</button>
-    <button onclick="generar('Acción')">🤹 ACCIÓN</button>
-    <button onclick="generar('Nombre de personaje')">🪪 NOMBRE</button>
-    <button onclick="generar('Emoción')">😭 EMOCIÓN</button>
-    <button onclick="generar('Superpoder')">🦸 SUPERPODER</button>
-    <button onclick="generar('Género cinematográfico')">📽️ ESTILO</button>
-    <button onclick="generar('Duda existencial')">💭 DUDA</button>
-    <button onclick="generar('Confesión')">😬 CONFESIÓN</button>
-    <button onclick="generar('Frase de película')">📝 FRASE</button>
-    <button onclick="abrirURL()"> + IDEAS</button>
-    <button onclick="generarNumero()">Número 1-9</button>
-    <button onclick="generarLetra()">Letra A-Z</button>
-
+    <button class="azul" onclick="generar('Profesión')">👷 PROFESIÓN</button>
+    <button class="azul" onclick="generar('Objeto')">🧹 OBJETO</button>
+    <button class="azul" onclick="generar('Lugar')">🏜️ LUGAR</button>
+    <button class="verde" onclick="generar('Acción')">🤹 ACCIÓN</button>
+    <button class="verde" onclick="generar('Nombre de personaje')">🪪 NOMBRE</button>
+    <button class="verde" onclick="generar('Emoción')">😭 EMOCIÓN</button>
+    <button class="amarillo" onclick="generar('Superpoder')">🦸 SUPERPODER</button>
+    <button class="amarillo" onclick="generar('Género cinematográfico')">📽️ ESTILO</button>
+    <button class="amarillo" onclick="generar('Duda existencial')">💭 DUDA</button>
+    <button class="rojo" onclick="generar('Confesión')">😬 CONFESIÓN</button>
+    <button class="rojo" onclick="generar('Frase de película')">📝 FRASE</button>
+    <button class="morado" onclick="abrirURL()">➕ IDEAS</button>
+    <button class="morado" onclick="generarNumero()">🔢 1-9</button>
+    <button class="morado" onclick="generarLetra()">🔤 A-Z</button>
   </div>
 
   <!-- Contenedor donde se mostrará el resultado -->
   <div id="resultado">Selecciona una categoría</div>
 
   <script>
-    // --- Función principal para generar un ítem aleatorio de la categoría seleccionada ---
     async function generar(categoriaSeleccionada) {
       try {
-        // Cargamos el CSV desde la URL definida en config.js
         const response = await fetch(URL_CSV);
         const text = await response.text();
-
-        // Procesamos las líneas del CSV
         const lineas = text.trim().split('\n');
-
-        // Eliminamos cualquier '\r' residual antes de separar por comas
         const encabezados = lineas[0].replace(/\r/g, '').split(',').map(h => h.trim());
         console.log(encabezados);
 
-        // Buscamos el índice de la categoría seleccionada
         const indiceCategoria = encabezados.indexOf(categoriaSeleccionada);
-
-        // Validamos que la categoría exista
         if (indiceCategoria === -1) {
           document.getElementById('resultado').innerText = "Categoría no encontrada.";
           return;
         }
 
-        // Obtenemos los datos de esa categoría
         const datos = lineas.slice(1)
           .map(linea => linea.split(',')[indiceCategoria])
           .filter(item => item && item.trim().length > 0);
 
-        // Validamos que haya datos disponibles
         if (datos.length === 0) {
           document.getElementById('resultado').innerText = "No hay datos en esta categoría.";
           return;
         }
 
-        // Seleccionamos un elemento aleatorio
         const aleatorio = datos[Math.floor(Math.random() * datos.length)];
         document.getElementById('resultado').innerText = aleatorio;
 
       } catch (error) {
-        // Manejamos errores (conexión, lectura de datos, etc.)
         console.error('Error al cargar los datos:', error);
         document.getElementById('resultado').innerText = "Error al generar.";
       }
     }
-    // --- Función para generar un número aleatorio del 1 al 9 ---
+
     function generarNumero() {
-      const numero = Math.floor(Math.random() * 9) + 1; // Número entre 1 y 9
+      const numero = Math.floor(Math.random() * 9) + 1;
       document.getElementById('resultado').innerText = numero;
     }
-    // --- Función para generar una letra aleatoria del abecedario ---
+
     function generarLetra() {
-      const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'; // Incluyendo la Ñ para español
+      const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
       const letra = letras[Math.floor(Math.random() * letras.length)];
       document.getElementById('resultado').innerText = letra;
     }
-    // --- Función para abrir el formulario de Google ---
+
     function abrirURL() {
       window.open('https://forms.gle/L4gUAor9v6sBrUzGA', '_blank');
     }
-
-
   </script>
 
 </body>
 </html>
-
