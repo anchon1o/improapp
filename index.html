@@ -119,6 +119,7 @@
     <button onclick="generar('Duda existencial')">Duda existencial</button>
     <button onclick="generar('Confesión')">Confesión</button>
     <button onclick="generar('Frase de película')">Frase de película</button>
+    <button onclick="abrirURL()">Enviar propuesta</button>
     <button onclick="generarNumero()">Número 1-9</button>
     <button onclick="generarLetra()">Letra A-Z</button>
 
@@ -182,7 +183,11 @@
       const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'; // Incluyendo la Ñ para español
       const letra = letras[Math.floor(Math.random() * letras.length)];
       document.getElementById('resultado').innerText = letra;
-}
+    }
+    // --- Función para abrir el formulario de Google ---
+    function abrirURL() {
+      window.open('https://forms.gle/L4gUAor9v6sBrUzGA', '_blank');
+    }
 
 
   </script>
