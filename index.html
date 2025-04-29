@@ -130,8 +130,28 @@
     <button class="morado" onclick="abrirURL()">➕ IDEAS</button>
     <button class="amarillo" onclick="generarNumero()">🔢 NÚM 1-9</button>
     <button class="amarillo" onclick="generarLetra()">🔤 LETRA</button>
+    <button class="verde" onclick="toggleTimer()">⏱ RELOJ</button>
   </div>
-
+  <!-- Contenedor donde se mostrará el reloj -->
+  <div id="temporizador" style="display:none; margin-top: 20px;">
+    <div>
+      <label for="modo">Modo:</label>
+      <select id="modo" onchange="cambiarModo()">
+        <option value="cuenta">Cuenta atrás</option>
+        <option value="cronometro">Cronómetro</option>
+      </select>
+    </div>
+    <div id="tiempo-selector" style="margin-top: 10px;">
+      <input type="number" id="minutos" value="1" min="0" max="59"> min
+      <input type="number" id="segundos" value="0" min="0" max="59"> seg
+    </div>
+    <div class="timer-controls" style="margin-top: 10px;">
+      <button onclick="iniciarTemporizador()">Iniciar</button>
+      <button onclick="pausarTemporizador()">Pausar</button>
+      <button onclick="reiniciarTemporizador()">Detener</button>
+    </div>
+    <div id="timer-display" style="font-size: 28px; margin-top: 10px;">01:00</div>
+  </div>
   <!-- Contenedor donde se mostrará el resultado -->
   <div id="resultado">Selecciona una categoría</div>
 
@@ -181,6 +201,70 @@
 
     function abrirURL() {
       window.open('https://forms.gle/L4gUAor9v6sBrUzGA', '_blank');
+    }
+    
+    let temporizador;
+    let tiempoTotal = 60;
+    let tiempoRestante = 60;
+    let enMarcha = false;
+    let esCuentaAtras = true;
+    
+    function toggleTimer() {
+      const div = document.getElementById('temporizador');
+      div.style.display = div.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    function cambiarModo() {
+      const modo = document.getElementById('modo').value;
+      esCuentaAtras = (modo === 'cuenta');
+      document.getElementById('tiempo-selector').style.display = esCuentaAtras ? 'block' : 'none';
+      document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00" : "00:00";
+    }
+    
+    function iniciarTemporizador() {
+      if (enMarcha) return;
+      if (esCuentaAtras) {
+        const min = parseInt(document.getElementById('minutos').value, 10);
+        const seg = parseInt(document.getElementById('segundos').value, 10);
+        tiempoRestante = min * 60 + seg;
+      } else {
+        tiempoRestante = 0;
+      }
+      enMarcha = true;
+      temporizador = setInterval(() => {
+        if (esCuentaAtras) {
+          if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            enMarcha = false;
+            document.getElementById('timer-display').innerText = "00:00";
+            new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play();
+          } else {
+            tiempoRestante--;
+            mostrarTiempo(tiempoRestante);
+          }
+        } else {
+          tiempoRestante++;
+          mostrarTiempo(tiempoRestante);
+        }
+      }, 1000);
+    }
+    
+    function pausarTemporizador() {
+      clearInterval(temporizador);
+      enMarcha = false;
+    }
+    
+    function reiniciarTemporizador() {
+      clearInterval(temporizador);
+      enMarcha = false;
+      document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00" : "00:00";
+    }
+    
+    function mostrarTiempo(segundos) {
+      const min = Math.floor(segundos / 60);
+      const seg = segundos % 60;
+      document.getElementById('timer-display').innerText =
+        String(min).padStart(2, '0') + ':' + String(seg).padStart(2, '0');
     }
   </script>
 
