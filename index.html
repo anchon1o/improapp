@@ -230,12 +230,15 @@ function cambiarModo() {
 function iniciarTemporizador() {
   if (enMarcha) return;
 
-  if (esCuentaAtras) {
-    const min = parseInt(document.getElementById('minutos').value, 10);
-    const seg = parseInt(document.getElementById('segundos').value, 10);
-    tiempoRestante = (min * 60 + seg) * 1000;
-  } else {
-    tiempoRestante = 0;
+  // Si estaba detenido del todo (no iniciado nunca o fue reiniciado)
+  if (tiempoRestante <= 0 || (!temporizador && !esCuentaAtras)) {
+    if (esCuentaAtras) {
+      const min = parseInt(document.getElementById('minutos').value, 10);
+      const seg = parseInt(document.getElementById('segundos').value, 10);
+      tiempoRestante = (min * 60 + seg) * 1000;
+    } else {
+      tiempoRestante = 0;
+    }
   }
 
   enMarcha = true;
@@ -246,7 +249,8 @@ function iniciarTemporizador() {
       if (tiempoRestante <= 0) {
         clearInterval(temporizador);
         enMarcha = false;
-        document.getElementById('timer-display').innerText = "00:00.00";
+        tiempoRestante = 0;
+        mostrarTiempo(0);
         document.getElementById('beep').play();
       } else {
         mostrarTiempo(tiempoRestante);
