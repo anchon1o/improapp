@@ -266,7 +266,15 @@ function pausarTemporizador() {
 function reiniciarTemporizador() {
   clearInterval(temporizador);
   enMarcha = false;
-  document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00.00" : "00:00.00";
+
+  if (esCuentaAtras) {
+    const min = parseInt(document.getElementById('minutos').value, 10);
+    const seg = parseInt(document.getElementById('segundos').value, 10);
+    const tiempoInicial = (min * 60 + seg) * 1000;
+    mostrarTiempo(tiempoInicial);
+  } else {
+    mostrarTiempo(0);
+  }
 }
 
 function mostrarTiempo(ms) {
