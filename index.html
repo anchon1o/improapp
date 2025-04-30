@@ -370,15 +370,15 @@ function iniciarTemporizador() {
   }
 
   // Si estaba detenido del todo (reiniciado)
-  if (tiempoRestante <= 0 || (!temporizador && !esCuentaAtras)) {
-    if (esCuentaAtras) {
-      const min = parseInt(document.getElementById('minutos').value, 10);
-      const seg = parseInt(document.getElementById('segundos').value, 10);
-      tiempoRestante = (min * 60 + seg) * 1000;
-    } else {
-      tiempoRestante = 0;
-    }
+  if (!enMarcha) {
+  if (esCuentaAtras) {
+    const min = parseInt(document.getElementById('minutos').value, 10);
+    const seg = parseInt(document.getElementById('segundos').value, 10);
+    tiempoRestante = (min * 60 + seg) * 1000;
+  } else {
+    tiempoRestante = tiempoRestante || 0;
   }
+}
 
   enMarcha = true;
   document.getElementById('boton-iniciar').innerText = 'Pausar';
