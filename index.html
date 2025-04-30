@@ -247,7 +247,7 @@ function iniciarTemporizador() {
         clearInterval(temporizador);
         enMarcha = false;
         document.getElementById('timer-display').innerText = "00:00.00";
-        new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play();
+        document.getElementById('beep').play();
       } else {
         mostrarTiempo(tiempoRestante);
       }
@@ -282,6 +282,8 @@ function mostrarTiempo(ms) {
   document.getElementById('timer-display').innerText = tiempoFormateado;
 }
   </script>
-
+<audio id="beep" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
 </body>
 </html>
