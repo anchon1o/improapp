@@ -226,27 +226,27 @@
       if (esCuentaAtras) {
         const min = parseInt(document.getElementById('minutos').value, 10);
         const seg = parseInt(document.getElementById('segundos').value, 10);
-        tiempoRestante = min * 60 + seg;
+        tiempoRestante = (min * 60 + seg) * 1000;
       } else {
         tiempoRestante = 0;
       }
       enMarcha = true;
-      temporizador = setInterval(() => {
+            temporizador = setInterval(() => {
         if (esCuentaAtras) {
+          tiempoRestante -= 10;
           if (tiempoRestante <= 0) {
             clearInterval(temporizador);
             enMarcha = false;
-            document.getElementById('timer-display').innerText = "00:00";
+            document.getElementById('timer-display').innerText = "00:00.00";
             new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play();
           } else {
-            tiempoRestante--;
             mostrarTiempo(tiempoRestante);
           }
         } else {
-          tiempoRestante++;
+          tiempoRestante += 10;
           mostrarTiempo(tiempoRestante);
         }
-      }, 1000);
+      }, 10); // cada 10ms
     }
     
     function pausarTemporizador() {
@@ -257,15 +257,21 @@
     function reiniciarTemporizador() {
       clearInterval(temporizador);
       enMarcha = false;
-      document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00" : "00:00";
+      document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00.00" : "00:00.00";
     }
     
-    function mostrarTiempo(segundos) {
-      const min = Math.floor(segundos / 60);
-      const seg = segundos % 60;
-      document.getElementById('timer-display').innerText =
-        String(min).padStart(2, '0') + ':' + String(seg).padStart(2, '0');
-    }
+      function mostrarTiempo(ms) {
+    const min = Math.floor(ms / 60000);
+    const seg = Math.floor((ms % 60000) / 1000);
+    const cent = Math.floor((ms % 1000) / 10);
+  
+    const tiempoFormateado =
+      String(min).padStart(2, '0') + ':' +
+      String(seg).padStart(2, '0') + '.' +
+      String(cent).padStart(2, '0');
+  
+    document.getElementById('timer-display').innerText = tiempoFormateado;
+  }
   </script>
 
 </body>
