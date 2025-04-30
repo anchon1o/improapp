@@ -172,13 +172,10 @@
   </div>
   <!-- Contenedor donde se mostrará el reloj -->
   <div id="temporizador" style="display:none; margin-top: 20px;">
-    <div>
-      <label for="modo">Modo:</label>
-      <select id="modo" onchange="cambiarModo()">
-        <option value="cuenta">Cuenta atrás</option>
-        <option value="cronometro">Cronómetro</option>
-      </select>
-    </div>
+    <select id="modo" onchange="cambiarModo()" style="margin-bottom: 10px;">
+      <option value="cuenta">Cuenta atrás</option>
+      <option value="cronometro">Cronómetro</option>
+    </select>
     <div id="tiempo-selector" style="margin-top: 10px;">
       <input type="number" id="minutos" value="1" min="0" max="59"> min
       <input type="number" id="segundos" value="0" min="0" max="59"> seg
