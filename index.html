@@ -152,9 +152,8 @@
       <input type="number" id="minutos" value="1" min="0" max="59"> min
       <input type="number" id="segundos" value="0" min="0" max="59"> seg
     </div>
-    <div class="timer-controls" style="margin-top: 10px;">
-      <button onclick="iniciarTemporizador()">Iniciar</button>
-      <button onclick="pausarTemporizador()">Pausar</button>
+    <div class="timer-controls">
+      <button id="boton-iniciar" onclick="iniciarTemporizador()">Iniciar</button>
       <button onclick="reiniciarTemporizador()">Detener</button>
     </div>
     <div id="timer-display" style="font-size: 28px; margin-top: 10px;">01:00.00</div>
@@ -228,9 +227,15 @@ function cambiarModo() {
 }
 
 function iniciarTemporizador() {
-  if (enMarcha) return;
+  if (enMarcha) {
+    // Si ya está en marcha, pausamos
+    clearInterval(temporizador);
+    enMarcha = false;
+    document.getElementById('boton-iniciar').innerText = 'Reanudar';
+    return;
+  }
 
-  // Si estaba detenido del todo (no iniciado nunca o fue reiniciado)
+  // Si estaba detenido del todo (reiniciado)
   if (tiempoRestante <= 0 || (!temporizador && !esCuentaAtras)) {
     if (esCuentaAtras) {
       const min = parseInt(document.getElementById('minutos').value, 10);
@@ -242,6 +247,7 @@ function iniciarTemporizador() {
   }
 
   enMarcha = true;
+  document.getElementById('boton-iniciar').innerText = 'Pausar';
 
   temporizador = setInterval(() => {
     if (esCuentaAtras) {
@@ -251,6 +257,7 @@ function iniciarTemporizador() {
         enMarcha = false;
         tiempoRestante = 0;
         mostrarTiempo(0);
+        document.getElementById('boton-iniciar').innerText = 'Iniciar';
         document.getElementById('beep').play();
       } else {
         mostrarTiempo(tiempoRestante);
@@ -262,13 +269,9 @@ function iniciarTemporizador() {
   }, 10);
 }
 
-function pausarTemporizador() {
-  clearInterval(temporizador);
-  enMarcha = false;
-}
-
 function reiniciarTemporizador() {
   clearInterval(temporizador);
+  temporizador = null;
   enMarcha = false;
 
   if (esCuentaAtras) {
@@ -280,6 +283,8 @@ function reiniciarTemporizador() {
     tiempoRestante = 0;
     mostrarTiempo(0);
   }
+
+  document.getElementById('boton-iniciar').innerText = 'Iniciar';
 }
 
 function mostrarTiempo(ms) {
