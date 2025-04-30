@@ -85,7 +85,7 @@
         border: 1px solid #444;
         border-radius: 10px;
         padding: 16px;
-        margin: 0 auto;
+        margin: 20px auto;
         max-width: 320px;
         box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
         color: white; /* importante para que se vea el texto */
@@ -228,27 +228,29 @@
   <!-- TEMPORIZADOR: solo un bloque limpio y claro -->
 <div id="temporizador" style="display:none;">
   <div class="timer-box">
-    
-    <div<div id="modo-tiempo">
-  <select id="modo" onchange="cambiarModo()">
-    <option value="cuenta">Cuenta atrás</option>
-    <option value="cronometro">Cronómetro</option>
-  </select>
 
-  <div id="tiempo-selector">
-    <input type="number" id="minutos" value="1" min="0" max="59"> min
-    <input type="number" id="segundos" value="0" min="0" max="59"> seg
-  </div>
-</div>
+    <!-- Selector de modo + tiempo inicial (en línea) -->
+    <div id="modo-tiempo">
+      <select id="modo" onchange="cambiarModo()">
+        <option value="cuenta">Cuenta atrás</option>
+        <option value="cronometro">Cronómetro</option>
+      </select>
 
-    <!-- Reloj -->
+      <div id="tiempo-selector">
+        <input type="number" id="minutos" value="1" min="0" max="59"> min
+        <input type="number" id="segundos" value="0" min="0" max="59"> seg
+      </div>
+    </div>
+
+    <!-- Reloj en pantalla -->
     <div id="timer-display">01:00.00</div>
 
-    <!-- Botones -->
+    <!-- Botones de control -->
     <div class="timer-controls">
       <button id="boton-iniciar" onclick="iniciarTemporizador()">Iniciar</button>
       <button onclick="reiniciarTemporizador()">Detener</button>
     </div>
+
   </div>
 </div>
 
