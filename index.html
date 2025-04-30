@@ -34,6 +34,7 @@
       margin-top: 10px;
       letter-spacing: 1px;
     }
+    
     /* --- Contenedor de los botones --- */
     #botones {
       display: flex;
@@ -73,6 +74,36 @@
     /* --- Hover para todos los botones --- */
     button:hover {
       background-color: #555555;
+    }
+
+    .timer-controls button {
+      width: 120px;
+      height: 40px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      border: none;
+      border-radius: 8px;
+      margin: 8px 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    #boton-iniciar {
+      background-color: #1abc9c; /* verde azulado */
+      color: white;
+    }
+    
+    #boton-iniciar:hover {
+      background-color: #16a085;
+    }
+    
+    .timer-controls button:last-child {
+      background-color: #e74c3c; /* rojo */
+      color: white;
+    }
+    
+    .timer-controls button:last-child:hover {
+      background-color: #c0392b;
     }
 
     /* --- Estilo del resultado mostrado --- */
