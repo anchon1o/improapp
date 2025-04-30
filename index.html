@@ -249,13 +249,12 @@
       </select>
 
       <div id="tiempo-selector">
-        <select id="minutos" class="tiempo-select">
-          <!-- opciones generadas por JS -->
-        </select> <span class="unidad">min</span>
-        
-        <select id="segundos" class="tiempo-select">
-          <!-- opciones generadas por JS -->
-        </select> <span class="unidad">seg</span>
+        <select id="minutos" class="tiempo-select" onchange="actualizarDisplayDesdeSelector()"></select>
+<span class="unidad">min</span>
+
+<select id="segundos" class="tiempo-select" onchange="actualizarDisplayDesdeSelector()"></select>
+<span class="unidad">seg</span>
+
 
       </div>
     </div>
@@ -357,7 +356,16 @@ function cambiarModo() {
   const modo = document.getElementById('modo').value;
   esCuentaAtras = (modo === 'cuenta');
   document.getElementById('tiempo-selector').style.display = esCuentaAtras ? 'block' : 'none';
-  document.getElementById('timer-display').innerText = esCuentaAtras ? "01:00.00" : "00:00.00";
+
+  if (esCuentaAtras) {
+    const min = parseInt(document.getElementById('minutos').value, 10);
+    const seg = parseInt(document.getElementById('segundos').value, 10);
+    tiempoRestante = (min * 60 + seg) * 1000;
+  } else {
+    tiempoRestante = 0;
+  }
+
+  mostrarTiempo(tiempoRestante);
 }
 
 function iniciarTemporizador() {
@@ -419,6 +427,15 @@ function reiniciarTemporizador() {
   }
 
   document.getElementById('boton-iniciar').innerText = 'Iniciar';
+}
+
+function actualizarDisplayDesdeSelector() {
+  if (esCuentaAtras && !enMarcha) {
+    const min = parseInt(document.getElementById('minutos').value, 10);
+    const seg = parseInt(document.getElementById('segundos').value, 10);
+    tiempoRestante = (min * 60 + seg) * 1000;
+    mostrarTiempo(tiempoRestante);
+  }
 }
 
 function mostrarTiempo(ms) {
