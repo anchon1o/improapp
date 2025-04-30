@@ -170,24 +170,35 @@
     <button class="amarillo" onclick="generarLetra()">🔤 LETRA</button>
     <button class="verde" onclick="toggleTimer()">⏱ RELOJ</button>
   </div>
-  <!-- Contenedor donde se mostrará el reloj -->
-  <div id="temporizador" style="display:none; margin-top: 20px;">
-    <select id="modo" onchange="cambiarModo()" style="margin-bottom: 10px;">
+  <!-- TEMPORIZADOR: solo un bloque limpio y claro -->
+<div id="temporizador" style="display:none;">
+  <div class="timer-box">
+    
+    <!-- Selector de modo -->
+    <select id="modo" onchange="cambiarModo()">
       <option value="cuenta">Cuenta atrás</option>
       <option value="cronometro">Cronómetro</option>
     </select>
-    <div id="tiempo-selector" style="margin-top: 10px;">
+
+    <!-- Campo de tiempo solo visible si es cuenta atrás -->
+    <div id="tiempo-selector">
       <input type="number" id="minutos" value="1" min="0" max="59"> min
       <input type="number" id="segundos" value="0" min="0" max="59"> seg
     </div>
+
+    <!-- Reloj -->
+    <div id="timer-display">01:00.00</div>
+
+    <!-- Botones -->
     <div class="timer-controls">
       <button id="boton-iniciar" onclick="iniciarTemporizador()">Iniciar</button>
       <button onclick="reiniciarTemporizador()">Detener</button>
     </div>
-    <div id="timer-display" style="font-size: 28px; margin-top: 10px;">01:00.00</div>
   </div>
-  <!-- Contenedor donde se mostrará el resultado -->
-  <div id="resultado">Selecciona una categoría</div>
+</div>
+
+<!-- Resultado de la categoría -->
+<div id="resultado">Selecciona una categoría</div>
 
   <script>
     async function generar(categoriaSeleccionada) {
