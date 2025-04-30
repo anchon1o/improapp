@@ -370,13 +370,13 @@ function iniciarTemporizador() {
   }
 
   // Si estaba detenido del todo (reiniciado)
-  if (!enMarcha) {
+  if (!enMarcha && tiempoRestante === 0) {
   if (esCuentaAtras) {
     const min = parseInt(document.getElementById('minutos').value, 10);
     const seg = parseInt(document.getElementById('segundos').value, 10);
     tiempoRestante = (min * 60 + seg) * 1000;
   } else {
-    tiempoRestante = tiempoRestante || 0;
+    tiempoRestante = 0;
   }
 }
 
