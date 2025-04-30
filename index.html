@@ -136,6 +136,17 @@
       box-sizing: border-box;
     }
 
+.tiempo-select {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #666;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  padding: 3px;
+  height: 28px;
+}
+
     /* --- Media queries para dispositivos móviles --- */
     @media (max-width: 480px) {
       body {
@@ -238,8 +249,14 @@
       </select>
 
       <div id="tiempo-selector">
-        <input type="number" id="minutos" value="1" min="0" max="59"> min
-        <input type="number" id="segundos" value="0" min="0" max="59"> seg
+        <select id="minutos" class="tiempo-select">
+          <!-- opciones generadas por JS -->
+        </select> <span class="unidad">min</span>
+        
+        <select id="segundos" class="tiempo-select">
+          <!-- opciones generadas por JS -->
+        </select> <span class="unidad">seg</span>
+
       </div>
     </div>
 
@@ -310,6 +327,26 @@
 let tiempoRestante = 60000; // en milisegundos
 let enMarcha = false;
 let esCuentaAtras = true;
+
+
+// Cargar opciones de 0 a 59 para los select de minutos y segundos
+function cargarOpcionesTiempo() {
+  const selectMin = document.getElementById('minutos');
+  const selectSeg = document.getElementById('segundos');
+
+  for (let i = 0; i < 60; i++) {
+    const opcion = `<option value="${i}">${String(i).padStart(2, '0')}</option>`;
+    selectMin.innerHTML += opcion;
+    selectSeg.innerHTML += opcion;
+  }
+
+  selectMin.value = 1; // valor por defecto
+  selectSeg.value = 0;
+}
+
+// Llamar la función al cargar
+document.addEventListener('DOMContentLoaded', cargarOpcionesTiempo);
+
 
 function toggleTimer() {
   const div = document.getElementById('temporizador');
