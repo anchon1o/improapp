@@ -274,9 +274,10 @@ function reiniciarTemporizador() {
   if (esCuentaAtras) {
     const min = parseInt(document.getElementById('minutos').value, 10);
     const seg = parseInt(document.getElementById('segundos').value, 10);
-    const tiempoInicial = (min * 60 + seg) * 1000;
-    mostrarTiempo(tiempoInicial);
+    tiempoRestante = (min * 60 + seg) * 1000;
+    mostrarTiempo(tiempoRestante);
   } else {
+    tiempoRestante = 0;
     mostrarTiempo(0);
   }
 }
