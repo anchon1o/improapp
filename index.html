@@ -159,6 +159,35 @@
         padding: 12px;
       }
     }
+    #modo-tiempo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+#modo {
+  padding: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+}
+
+#tiempo-selector input {
+  width: 50px;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #666;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+}
   </style>
 
   <script src="config.js"></script> <!-- Cargamos la URL del CSV -->
@@ -190,16 +219,16 @@
 <div id="temporizador" style="display:none;">
   <div class="timer-box">
     
-    <!-- Selector de modo -->
-    <select id="modo" onchange="cambiarModo()">
-      <option value="cuenta">Cuenta atrás</option>
-      <option value="cronometro">Cronómetro</option>
-    </select>
-
-    <!-- Campo de tiempo solo visible si es cuenta atrás -->
-    <div id="tiempo-selector">
-      <input type="number" id="minutos" value="1" min="0" max="59"> min
-      <input type="number" id="segundos" value="0" min="0" max="59"> seg
+    <div id="modo-tiempo">
+      <select id="modo" onchange="cambiarModo()">
+        <option value="cuenta">Cuenta atrás</option>
+        <option value="cronometro">Cronómetro</option>
+      </select>
+    
+      <div id="tiempo-selector">
+        <input type="number" id="minutos" value="1" min="0" max="59"> min
+        <input type="number" id="segundos" value="0" min="0" max="59"> seg
+      </div>
     </div>
 
     <!-- Reloj -->
