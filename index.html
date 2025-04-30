@@ -56,11 +56,13 @@
       border-radius: 8px;
       font-size: 13px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      /* transition: background-color 0.3s ease; */
       padding: 0 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
     }
 
     /* --- Colores específicos --- */
@@ -74,7 +76,14 @@
     /* --- Hover para todos los botones --- */
     button:hover {
       background-color: #555555;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(255,255,255,0.1);
     }
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
 
         #temporizador {
         margin-top: 14px;
