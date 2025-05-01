@@ -517,7 +517,7 @@ function iniciarTemporizador() {
     // Si ya está en marcha, pausamos
     clearInterval(temporizador);
     enMarcha = false;
-    document.getElementById('boton-iniciar').innerText = 'Reanudar';
+    document.getElementById('boton-iniciar').innerText = '▶️';
     return;
   }
 
@@ -533,7 +533,7 @@ function iniciarTemporizador() {
 }
 
   enMarcha = true;
-  document.getElementById('boton-iniciar').innerText = 'Pausar';
+  document.getElementById('boton-iniciar').innerText = '⏸️';
 
   temporizador = setInterval(() => {
     if (esCuentaAtras) {
