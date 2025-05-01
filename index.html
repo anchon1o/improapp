@@ -11,6 +11,28 @@
   <!-- Fuente Roboto Mono para el reloj -->  
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
+  
+  body.modo-oscuro {
+  background-color: #000;
+  color: #fff;
+}
+
+body.modo-claro {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+#modo-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  color: inherit;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 999;
+}
     /* --- Estilos generales de la página --- */
     body {
       background-color: #000000;
@@ -322,7 +344,9 @@ button:active {
 </head>
 
 <body>
-
+<button id="modo-toggle" onclick="alternarModo()" title="Cambiar modo">
+  🌙
+</button>
   <h1>improApp 🎭</h1>
 
   <!-- Botones para seleccionar categorías -->
@@ -652,7 +676,29 @@ function mostrarTiempo(ms) {
       metronomoActivo = false;
       document.getElementById('btn-metronomo').innerText = '🔈';
     }
+function alternarModo() {
+  const body = document.body;
+  const btn = document.getElementById("modo-toggle");
 
+  if (body.classList.contains("modo-oscuro")) {
+    body.classList.remove("modo-oscuro");
+    body.classList.add("modo-claro");
+    btn.innerText = "🌙";
+    localStorage.setItem("modo", "claro");
+  } else {
+    body.classList.remove("modo-claro");
+    body.classList.add("modo-oscuro");
+    btn.innerText = "☀️";
+    localStorage.setItem("modo", "oscuro");
+  }
+}
+
+// Aplicar modo guardado
+window.addEventListener("DOMContentLoaded", () => {
+  const modoGuardado = localStorage.getItem("modo") || "oscuro";
+  document.body.classList.add(`modo-${modoGuardado}`);
+  document.getElementById("modo-toggle").innerText = modoGuardado === "oscuro" ? "☀️" : "🌙";
+});
   </script>
 
 
