@@ -595,16 +595,18 @@ let metronomoActivo = false;
 
       metronomoInterval = setInterval(() => {
         // sonido
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.type = 'square';
-        osc.frequency.value = 1000;
-        gain.gain.setValueAtTime(0.2, ctx.currentTime);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.05);
+        if (!window.ctx) {
+  window.ctx = new (window.AudioContext || window.webkitAudioContext)();
+}
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.type = 'square';
+osc.frequency.value = 1000;
+gain.gain.setValueAtTime(0.2, ctx.currentTime);
+osc.start();
+osc.stop(ctx.currentTime + 0.05);
 
         // pulso visual
         pulso.style.backgroundColor = '#1abc9c';
