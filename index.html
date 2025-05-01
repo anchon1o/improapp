@@ -554,7 +554,16 @@ function mostrarTiempo(ms) {
 
     detenerMetronomo(); // Por si ya está activo
     metronomoInterval = setInterval(() => {
-      document.getElementById('click').play();
+     const ctx = new (window.AudioContext || window.webkitAudioContext)();
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.type = 'square';
+osc.frequency.value = 1000; // tono agudo
+gain.gain.setValueAtTime(0.2, ctx.currentTime);
+osc.start();
+osc.stop(ctx.currentTime + 0.05);
     }, intervalo);
   }
 
