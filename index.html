@@ -206,16 +206,20 @@ button:active {
       transition: all 0.1s ease;
     }
 
-    #btn-metronomo {
-      min-width: 70px;
-      height: 40px;
-      font-size: 13px;
-      border-radius: 8px;
-      background-color: #1abc9c;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
+#btn-metronomo {
+  min-width: 40px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 50%;
+  background-color: #1abc9c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
     #btn-metronomo:hover {
       background-color: #16a085;
@@ -375,7 +379,7 @@ button:active {
 <!-- METRÓNOMO -->
   <div id="metronomo">
     <div class="metronomo-fila">
-      <button id="btn-metronomo" onclick="toggleMetronomoActivo()">Iniciar</button>
+      <button id="btn-metronomo" onclick="toggleMetronomoActivo()">▶️</button>
       <input type="range" id="bpm-range" min="30" max="200" value="60" oninput="actualizarBPM(this.value)">
       <div id="pulso-visual">60</div>
     </div>
@@ -620,7 +624,7 @@ function mostrarTiempo(ms) {
       const intervalo = 60000 / bpmActual;
       const pulso = document.getElementById('pulso-visual');
       metronomoActivo = true;
-      document.getElementById('btn-metronomo').innerText = 'Detener';
+      document.getElementById('btn-metronomo').innerText = '■';
 
       metronomoInterval = setInterval(() => {
         const osc = ctx.createOscillator();
@@ -645,7 +649,7 @@ function mostrarTiempo(ms) {
     function detenerMetronomo() {
       clearInterval(metronomoInterval);
       metronomoActivo = false;
-      document.getElementById('btn-metronomo').innerText = 'Iniciar';
+      document.getElementById('btn-metronomo').innerText = '▶️';
     }
 
   </script>
