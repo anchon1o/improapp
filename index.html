@@ -138,8 +138,8 @@ button:active {
 }
 
 .flecha {
-  background-color: #111111;  /* Igual que #resultado */
-  border: 1px solid #444;     /* Borde suave para integrarse con el fondo */
+  background-color: #111111;       /* igual que #resultado */
+  border: none;                    /* sin borde */
   color: #fff;
   font-size: 24px;
   cursor: pointer;
@@ -147,11 +147,17 @@ button:active {
   border-radius: 6px;
   transition: background-color 0.2s ease, transform 0.2s ease;
   box-shadow: none;
+  outline: none;
 }
 
 .flecha:hover {
-  background-color: #222222;
+  background-color: #222222;       /* leve hover */
   transform: scale(1.1);
+}
+
+.flecha:focus {
+  outline: none;
+  box-shadow: none;
 }
 
     /* --- Estilo del resultado mostrado --- */
