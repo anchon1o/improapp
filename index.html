@@ -363,9 +363,9 @@ function generarLetra() {
 function mostrarLetraAbecedario() {
   const letra = letrasABC[indiceLetra];
   document.getElementById('resultado').innerHTML = `
-    <button onclick="retrocederLetra()" class="flecha">◀</button>
+    <button onclick="retrocederLetra()" class="flecha">&lt</button>
     <span class="letra-grande">${letra}</span>
-    <button onclick="avanzarLetra()" class="flecha">▶</button>
+    <button onclick="avanzarLetra()" class="flecha">&gt</button>
   `;
 }
 
