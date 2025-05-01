@@ -172,6 +172,31 @@ button:active {
   margin: 0 auto;
 }
 
+ #metronomo {
+      display: none;
+      background-color: #111;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      max-width: 320px;
+      margin: 0 auto 30px auto;
+    }
+
+    #pulso-visual {
+      margin-top: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #444;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.1s ease;
+    }
+
+    #bpm-range {
+      width: 100%;
+      margin-top: 10px;
+    }
 
 
     /* --- Estilo del resultado mostrado --- */
@@ -325,14 +350,13 @@ button:active {
 </div>
 
 <!-- METRÓNOMO -->
-<div id="metronomo" style="display:none;">
-  <div class="timer-box">
-    <label for="bpm">BPM:</label>
-    <input type="number" id="bpm" value="60" min="30" max="240">
-    <button onclick="iniciarMetronomo()">Iniciar</button>
-    <button onclick="detenerMetronomo()">Detener</button>
+  <div id="metronomo">
+    <label for="bpm">BPM: <span id="bpm-valor">60</span></label>
+    <input type="range" id="bpm-range" min="30" max="240" value="60" oninput="actualizarBPM(this.value)">
+    <button onclick="toggleMetronomoActivo()" id="btn-metronomo">Iniciar</button>
+    <div id="pulso-visual"></div>
   </div>
-</div>
+
 <!-- Resultado de la categoría -->
 <div id="resultado">Selecciona una categoría</div>
 
@@ -541,36 +565,64 @@ function mostrarTiempo(ms) {
   document.getElementById('timer-display').innerText = tiempoFormateado;
 }
 
-  let metronomoInterval;
+let metronomoActivo = false;
+    let metronomoInterval;
+    let bpmActual = 90;
 
-  function toggleMetronomo() {
-    const div = document.getElementById('metronomo');
-    div.style.display = div.style.display === 'none' ? 'block' : 'none';
-  }
+    function toggleMetronomo() {
+      const div = document.getElementById('metronomo');
+      div.style.display = div.style.display === 'none' ? 'block' : 'none';
+    }
 
-  function iniciarMetronomo() {
-    const bpm = parseInt(document.getElementById('bpm').value, 10);
-    const intervalo = 60000 / bpm;
+    function actualizarBPM(valor) {
+      bpmActual = parseInt(valor);
+      document.getElementById('bpm-valor').innerText = valor;
+      if (metronomoActivo) {
+        detenerMetronomo();
+        iniciarMetronomo();
+      }
+    }
 
-    detenerMetronomo(); // Por si ya está activo
-    metronomoInterval = setInterval(() => {
-     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-const osc = ctx.createOscillator();
-const gain = ctx.createGain();
-osc.connect(gain);
-gain.connect(ctx.destination);
-osc.type = 'square';
-osc.frequency.value = 1000; // tono agudo
-gain.gain.setValueAtTime(0.2, ctx.currentTime);
-osc.start();
-osc.stop(ctx.currentTime + 0.05);
-    }, intervalo);
-  }
+    function toggleMetronomoActivo() {
+      metronomoActivo ? detenerMetronomo() : iniciarMetronomo();
+    }
 
-  function detenerMetronomo() {
-    clearInterval(metronomoInterval);
-  }
-</script>
+    function iniciarMetronomo() {
+      const intervalo = 60000 / bpmActual;
+      const pulso = document.getElementById('pulso-visual');
+      metronomoActivo = true;
+      document.getElementById('btn-metronomo').innerText = 'Detener';
+
+      metronomoInterval = setInterval(() => {
+        // sonido
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'square';
+        osc.frequency.value = 1000;
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.05);
+
+        // pulso visual
+        pulso.style.backgroundColor = '#1abc9c';
+        pulso.style.transform = 'scale(1.4)';
+        setTimeout(() => {
+          pulso.style.backgroundColor = '#444';
+          pulso.style.transform = 'scale(1)';
+        }, 100);
+      }, intervalo);
+    }
+
+    function detenerMetronomo() {
+      clearInterval(metronomoInterval);
+      metronomoActivo = false;
+      document.getElementById('btn-metronomo').innerText = 'Iniciar';
+    }
+  </script>
+
 
 
   
