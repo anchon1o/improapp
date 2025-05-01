@@ -48,6 +48,14 @@ body.modo-oscuro .timer-box {
   border: 1px solid #444;
 }
 
+body.modo-claro #timer-display {
+  color: #111;
+}
+
+body.modo-oscuro #timer-display {
+  color: #fff;
+}
+
 /* Metrónomo */
 body.modo-claro #metronomo {
   background-color: #ffffff;
@@ -200,11 +208,18 @@ button:active {
     .timer-controls button:last-child:hover {
       background-color: #111111;
     }
+    
 .letra-grande {
-  font-size: 24px;
-  font-family: 'Montserrat', monospace;
-  margin: 0 12px;
-  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+body.modo-claro .letra-grande {
+  color: #111;
+}
+
+body.modo-oscuro .letra-grande {
+  color: #fff;
 }
 
 .flecha {
