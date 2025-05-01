@@ -138,17 +138,20 @@ button:active {
 }
 
 .flecha {
-  background-color: transparent;
-  border: none;
-  color: #111111;
+  background-color: #111111;  /* Igual que #resultado */
+  border: 1px solid #444;     /* Borde suave para integrarse con el fondo */
+  color: #fff;
   font-size: 24px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: none;
 }
 
 .flecha:hover {
-  transform: scale(1.2);
-  color: #ddd;
+  background-color: #222222;
+  transform: scale(1.1);
 }
 
     /* --- Estilo del resultado mostrado --- */
