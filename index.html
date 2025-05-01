@@ -130,6 +130,26 @@ button:active {
     .timer-controls button:last-child:hover {
       background-color: #c0392b;
     }
+.letra-grande {
+  font-size: 42px;
+  font-family: 'Roboto Mono', monospace;
+  margin: 0 12px;
+  color: #f1c40f;
+}
+
+.flecha {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.flecha:hover {
+  transform: scale(1.2);
+  color: #ddd;
+}
 
     /* --- Estilo del resultado mostrado --- */
     #resultado {
@@ -285,6 +305,7 @@ button:active {
 
   <script>
     async function generar(categoriaSeleccionada) {
+      modoAbecedarioActivo = false;
       try {
         const response = await fetch(URL_CSV);
         const text = await response.text();
@@ -321,11 +342,36 @@ button:active {
       document.getElementById('resultado').innerText = numero;
     }
 
-    function generarLetra() {
-      const letras = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
-      const letra = letras[Math.floor(Math.random() * letras.length)];
-      document.getElementById('resultado').innerText = letra;
-    }
+    const letrasABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+let indiceLetra = 0;
+let modoAbecedarioActivo = false;
+
+function generarLetra() {
+  indiceLetra = Math.floor(Math.random() * letrasABC.length);
+  modoAbecedarioActivo = true;
+  mostrarLetraAbecedario();
+}
+
+function mostrarLetraAbecedario() {
+  const letra = letrasABC[indiceLetra];
+  document.getElementById('resultado').innerHTML = `
+    <button onclick="retrocederLetra()" class="flecha">◀</button>
+    <span class="letra-grande">${letra}</span>
+    <button onclick="avanzarLetra()" class="flecha">▶</button>
+  `;
+}
+
+function avanzarLetra() {
+  if (!modoAbecedarioActivo) return;
+  indiceLetra = (indiceLetra + 1) % letrasABC.length;
+  mostrarLetraAbecedario();
+}
+
+function retrocederLetra() {
+  if (!modoAbecedarioActivo) return;
+  indiceLetra = (indiceLetra - 1 + letrasABC.length) % letrasABC.length;
+  mostrarLetraAbecedario();
+}
 
     function abrirURL() {
       window.open('https://forms.gle/L4gUAor9v6sBrUzGA', '_blank');
