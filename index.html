@@ -145,8 +145,8 @@ button:active {
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,6 +162,14 @@ button:active {
 
 .flecha:focus {
   outline: none;
+}
+
+.contenedor-letra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
     /* --- Estilo del resultado mostrado --- */
@@ -368,9 +376,11 @@ function generarLetra() {
 function mostrarLetraAbecedario() {
   const letra = letrasABC[indiceLetra];
   document.getElementById('resultado').innerHTML = `
-    <button onclick="retrocederLetra()" class="flecha">&lt</button>
-    <span class="letra-grande">${letra}</span>
-    <button onclick="avanzarLetra()" class="flecha">&gt</button>
+    <div class="contenedor-letra">
+      <button onclick="retrocederLetra()" class="flecha">&lt;</button>
+      <span class="letra-grande">${letra}</span>
+      <button onclick="avanzarLetra()" class="flecha">&gt;</button>
+    </div>
   `;
 }
 
