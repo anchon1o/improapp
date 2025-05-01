@@ -101,17 +101,19 @@ button:active {
       }
 
 
-    .timer-controls button {
-      width: 90px;
-      height: 32px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
-      border: none;
-      border-radius: 6px;
-      margin: 6px 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+   .timer-controls button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+  border-radius: 6px;
+  background-color: #1abc9c;
+  color: white;
+}
+
+.timer-controls button:last-child {
+  background-color: #e74c3c;
+}
     
     #boton-iniciar {
       background-color: #1abc9c; /* verde azulado */
@@ -364,14 +366,13 @@ button:active {
       </div>
     </div>
 
-    <!-- Reloj en pantalla -->
-    <div id="timer-display">01:00.00</div>
-
-    <!-- Botones de control -->
-    <div class="timer-controls">
-      <button id="boton-iniciar" onclick="iniciarTemporizador()">Iniciar</button>
-      <button onclick="reiniciarTemporizador()">Detener</button>
-    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+  <div class="timer-controls" style="display: flex; gap: 8px;">
+    <button id="boton-iniciar" onclick="iniciarTemporizador()">▶️</button>
+    <button onclick="reiniciarTemporizador()">⏹️</button>
+  </div>
+  <div id="timer-display">01:00.00</div>
+</div>
 
   </div>
 </div>
