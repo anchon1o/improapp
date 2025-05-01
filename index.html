@@ -172,6 +172,8 @@ button:active {
   margin: 0 auto;
 }
 
+
+
     /* --- Estilo del resultado mostrado --- */
     #resultado {
       margin-top: 14px;
@@ -286,6 +288,7 @@ button:active {
     <button class="amarillo" onclick="generarNumero()">🔢 NÚM 1-9</button>
     <button class="amarillo" onclick="generarLetra()">🔤 LETRA</button>
     <button class="verde" onclick="toggleTimer()">⏱ RELOJ</button>
+    <button class="rojo" onclick="toggleMetronomo()">🎵 METRÓNOMO</button>
   </div>
   <!-- TEMPORIZADOR: solo un bloque limpio y claro -->
 <div id="temporizador" style="display:none;">
@@ -321,6 +324,15 @@ button:active {
   </div>
 </div>
 
+<!-- METRÓNOMO -->
+<div id="metronomo" style="display:none;">
+  <div class="timer-box">
+    <label for="bpm">BPM:</label>
+    <input type="number" id="bpm" value="60" min="30" max="240">
+    <button onclick="iniciarMetronomo()">Iniciar</button>
+    <button onclick="detenerMetronomo()">Detener</button>
+  </div>
+</div>
 <!-- Resultado de la categoría -->
 <div id="resultado">Selecciona una categoría</div>
 
@@ -528,9 +540,38 @@ function mostrarTiempo(ms) {
 
   document.getElementById('timer-display').innerText = tiempoFormateado;
 }
-  </script>
+
+  let metronomoInterval;
+
+  function toggleMetronomo() {
+    const div = document.getElementById('metronomo');
+    div.style.display = div.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function iniciarMetronomo() {
+    const bpm = parseInt(document.getElementById('bpm').value, 10);
+    const intervalo = 60000 / bpm;
+
+    detenerMetronomo(); // Por si ya está activo
+    metronomoInterval = setInterval(() => {
+      document.getElementById('click').play();
+    }, intervalo);
+  }
+
+  function detenerMetronomo() {
+    clearInterval(metronomoInterval);
+  }
+</script>
+
+
+  
+
 <audio id="beep" preload="auto">
   <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+    </audio>
+<audio id="click" preload="auto">
+<source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
 </audio>
+
 </body>
 </html>
