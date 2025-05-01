@@ -138,26 +138,25 @@ button:active {
 }
 
 .flecha {
-  background-color: #111111;       /* igual que #resultado */
-  border: none;                    /* sin borde */
+  background-color: transparent;
+  border: none;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
   box-shadow: none;
   outline: none;
+  transition: transform 0.2s ease;
 }
 
 .flecha:hover {
-  background-color: #222222;       /* leve hover */
-  transform: scale(1.1);
+  transform: scale(1.2);
+  color: #ccc;
 }
 
 .flecha:focus {
   outline: none;
-  box-shadow: none;
 }
 
     /* --- Estilo del resultado mostrado --- */
