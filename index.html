@@ -592,7 +592,7 @@ function mostrarTiempo(ms) {
 
     let metronomoActivo = false;
     let metronomoInterval;
-    let bpmActual = 90;
+    let bpmActual = 60;
 
     if (!window.ctx) {
       window.ctx = new (window.AudioContext || window.webkitAudioContext)();
